@@ -1,10 +1,4 @@
-// console.log(process);
+//  To use ES6 features, you need to update your package.json file to include the following:
+// "type": "module"
+// To use ES2015 import syntax, you need to use Babel to transpile the code. 
 
-// common js files(modules) import way - old version - default function export function importing
-// const generateRandomNumber = require('./utils');
-
-// importing multiple modules(functions) in same file - common js
-const { generateRandomnumber, celciusToFarhenheit } = require('./utilsmulti');
-
-console.log(`Random number: ${generateRandomnumber()}`);
-console.log(`Celcius to Farhenheit: ${celciusToFarhenheit(0)}`);
