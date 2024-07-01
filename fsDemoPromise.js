@@ -42,6 +42,17 @@ const appendFile = async () => {
     }
 };
 
+// delete the file -async/await
+const deleteFile = async () => {
+    try {
+        await fs.unlink('test.txt');
+        console.log('File removed...');
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 writeFile();
 appendFile();
 readFile();
+// deleteFile();
