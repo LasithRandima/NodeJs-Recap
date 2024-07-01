@@ -32,7 +32,7 @@ const getUser = (req, res) => {
     const user = users.find(user => user.id === parseInt(id));
 
     if (user) {
-        res.write(JSON.stringify(user));
+        res.write(JSON.stringify(user));    // Converts a JavaScript object into a JSON string.
         res.end();
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
@@ -46,16 +46,36 @@ const notFound = (req, res) => {
     res.end();
 }; 
 
+// Route handler for POST /api/users
+const createUser = (req, res) => {
+    let body = ''; // 
+
+    // Listen for data
+    req.on('data', chunk => {
+        body += chunk.toString();
+    });
+
+    req.on('end', () => {
+        const user = JSON.parse(body);   // Converts a JSON string into a JavaScript object
+        users.push(user);
+        res.statusCode = 201;
+        res.write(JSON.stringify(user));
+        res.end();
+    });
+};
+
 const server = createServer((req, res) => {
     //* using logger middleware in the server
     // we have to wrap previously created rest handlers inside the logger middleware as a callback function
-    logger(req, res, () => {
+    logger(req, res, () => {  
         jsonMiddleware(req, res, () => { 
             if (req.url === '/api/users' && req.method === 'GET') {
                 getUsers(req, res);
             } else if (req.url.match(/\/api\/users\/([0-9]+)/) && req.method === 'GET'){
                 getUser(req, res);
-            } else {
+            } else if (req.url === '/api/users' && req.method === 'POST') {
+                createUser(req, res);
+            }  else {
                 notFound(req, res);
             }
         });
