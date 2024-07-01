@@ -41,6 +41,7 @@ const server = http.createServer(async(req, res) => {
                 throw new Error('Page not found');
             }
 
+            // Read file and send response
             const data = await fs.readFile(filePath);
             res.setHeader('Content-Type', 'text/html');
             res.write(data);
@@ -53,26 +54,6 @@ const server = http.createServer(async(req, res) => {
         res.end('Server Error: ' + error.message);
     }
 
-//   2.Create simple router in node
-// if (req.url === '/') {
-//     res.writeHead(200, { 'Content-Type': 'text/html' });
-//     res.end('<h1>HomePage</h1>');
-//     } else if (req.url === '/about') {
-//     res.writeHead(200, { 'Content-Type': 'text/html' });
-//     res.end('<h1>About Page</h1>');
-//     } else {
-//     res.writeHead(404, { 'Content-Type': 'text/html' });
-//     res.end('<h1>Page Not Found</h1>');
-//     }
-
-
-// 1.using http module we can access request and response objects and display them in browser
-
-//   console.log(req);
-//   console.log(req.method);
-//   res.writeHead(200, { 'Content-Type': 'text/html' });
-//   res.write('<h1>Hello from node.js</h1>');
-//   res.end('Hello World\n');
 });
 
 server.listen(PORT, () => {
